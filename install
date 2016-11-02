@@ -1,0 +1,28 @@
+#!/bin/bash
+
+echo "Installing enviornment"
+if [ ! -e /usr/local/Homebrew]; then
+echo "Installing Homebrew"
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+echo "Updating Homebrew"
+brew update
+
+if [ ! -e /usr/local/bin/wget]; then
+echo "Installing wget"
+brew install wget
+fi
+
+echo "Installing files"
+mv ../ngpd /usr/local/bin/ngpd
+mv ../ngpd_uni.plist ~/Library/LaunchAgents/ngpd_uni.plist
+
+echo "Create directory at ~/Pictures/ngpd"
+mkdir ~/Pictures/ngpd
+
+echo "Start up agent"
+launchctl load ~/Library/LaunchAgents/ngpd_uni.plist
+
+# Print "have a nice day"
+python print.py

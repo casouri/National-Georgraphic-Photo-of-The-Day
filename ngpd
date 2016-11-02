@@ -1,0 +1,52 @@
+#!/bin/bash
+
+PICTURES_DIR=~/Pictures/ngpd
+
+# ====================
+# =     FUNCTION     =
+# ====================
+
+function get_page {
+echo "Get website page for url"
+wget --quiet -O - http://www.nationalgeographic.com/photography/photo-of-the-day/ | grep -m 1 http://yourshot.nationalgeographic.com/u/.*/ -o > /tmp/pic_url
+}
+
+function clean_up {
+echo "Clean up temporary files"
+if [ -e "tmp/pic_url" ]; then
+rm /tmp/pic_url
+fi
+if [ -e "/tmp/ngpd_ept.jpg" ]; then
+rm /tmp/ngpd_ept.jpg
+fi
+}
+
+# ====================
+# =       MAIN       =
+# ====================
+
+TODAY=$(date +'%Y%m%d')
+
+if [ ! -e $PICTURES_DIR/ ]; then
+echo "First time to use, setting up."
+mkdir $PICTURES_DIR
+fi
+
+get_page
+
+PICURL=`/bin/cat /tmp/pic_url`
+PICURL="${PICURL:0:${#PICURL} - 2}"
+
+
+# echo "Picture URL is: $PICURL"
+
+echo "Download picture"
+wget --quiet $PICURL -O $PICTURES_DIR/${TODAY}_NGPD.jpg
+chmod 666 $PICTURES_DIR/${TODAY}_NGPD.jpg
+# Save picture for export to desktop picture, for osascript would not take substutution of variable
+cp $PICTURES_DIR/${TODAY}_NGPD.jpg /tmp/ngpd_ept.jpg
+
+echo "Set picture as wallpaper"
+osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_ept.jpg" as POSIX file'
+
+clean_up
