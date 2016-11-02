@@ -1,6 +1,13 @@
 #!/bin/bash
 
-echo "Installing enviornment"
+# move working directory to script's directory
+cd "${0%/*}"
+
+echo"==>>>=======>>=====<+>=======<<========<<<=="
+echo"*** National Geographic Photo of The Day ***"
+echo"==>>>=======>>=====<+>=======<<========<<<=="
+
+echo "Installing enviornment:"
 if [ ! -e /usr/local/Homebrew ]; then
 echo "Installing Homebrew"
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -14,13 +21,15 @@ echo "Installing wget"
 brew install wget
 fi
 
+echo "Installing script:"
 echo "Installing files"
-mv ../ngpd /usr/local/bin/ngpd
-mv ../ngpd_uni.plist ~/Library/LaunchAgents/ngpd_uni.plist
+mv ngpd /usr/local/bin/ngpd
+mv ngpd_uni.plist ~/Library/LaunchAgents/ngpd_uni.plist
 
+if [ ! -e ~/Pictures/ngpd ]; then
 echo "Create directory at ~/Pictures/ngpd"
 mkdir ~/Pictures/ngpd
-
+fi
 echo "Start up agent"
 launchctl load ~/Library/LaunchAgents/ngpd_uni.plist
 
