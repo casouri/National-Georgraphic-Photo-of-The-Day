@@ -3,9 +3,9 @@
 # move working directory to script's directory
 cd "${0%/*}"
 
-echo"==>>>=======>>=====<+>=======<<========<<<=="
-echo"*** National Geographic Photo of The Day ***"
-echo"==>>>=======>>=====<+>=======<<========<<<=="
+echo "==>>>=======>>=====<+>=======<<========<<<=="
+echo "*** National Geographic Photo of The Day ***"
+echo "==>>>=======>>=====<+>=======<<========<<<=="
 
 echo "Installing enviornment:"
 if [ ! -e /usr/local/Homebrew ]; then
@@ -23,8 +23,8 @@ fi
 
 echo "Installing script:"
 echo "Installing files"
-mv ngpd /usr/local/bin/ngpd
-mv ngpd_uni.plist ~/Library/LaunchAgents/ngpd_uni.plist
+cp ngpd /usr/local/bin/ngpd
+cp ngpd_uni.plist ~/Library/LaunchAgents/ngpd_uni.plist
 
 if [ ! -e ~/Pictures/ngpd ]; then
 echo "Create directory at ~/Pictures/ngpd"
