@@ -6,8 +6,6 @@
 <string>ngpd</string>
 <key>Program</key>
 <string>/usr/local/bin/ngpd</string>
-<key>RunAtLoad</key>
-<true/>
 <key>StartCalendarInterval</key>
 <dict>
 	<key>Hour</key>

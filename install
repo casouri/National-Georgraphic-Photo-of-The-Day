@@ -30,8 +30,10 @@ if [ ! -e ~/Pictures/ngpd ]; then
 echo "Create directory at ~/Pictures/ngpd"
 mkdir ~/Pictures/ngpd
 fi
-echo "Start up agent"
+echo "Load agent"
 launchctl load ~/Library/LaunchAgents/ngpd_uni.plist
+echo "Start agent"
+/usr/local/bin/ngpd
 
 # Print "have a nice day"
 python print.py
