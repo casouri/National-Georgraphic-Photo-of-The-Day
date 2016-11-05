@@ -9,19 +9,17 @@ PICTURES_DIR=~/Pictures/ngpd
 # keep getting url until get the valuable url(not nil)
 function get_page {
 echo "# Get website page for url"
-URL=""
-until [ URL != "" ]
-do
-URL=`wget --quiet -O - http://www.nationalgeographic.com/photography/photo-of-the-day/ | grep -m 1 http://yourshot.nationalgeographic.com/u/.*/ -o`
-done
-URL="${URL:0:${#URL} - 2}"
-return URL
+wget --quiet -O - http://www.nationalgeographic.com/photography/photo-of-the-day/ | grep -m 1 http://yourshot.nationalgeographic.com/u/.*/ -o > /tmp/pic_url
 }
 
 function clean_up {
 echo "# Clean up temporary files"
-if [ -e "/tmp/ngpd_ept.jpg" ]; then
-rm /tmp/ngpd_ept.jpg
+if [ -e "/tmp/pic_url" ]; then
+rm /tmp/pic_url
+fi
+
+if [ -e "/tmp/ngpd_ept.jpeg" ]; then
+rm /tmp/ngpd_ept.jpeg
 fi
 }
 
@@ -32,24 +30,27 @@ fi
 TODAY=$(date +'%Y%m%d')
 
 if [ ! -e $PICTURES_DIR/ ]; then
-echo "# First time to use, setting up."
+echo "# First time using, setting up."
 mkdir $PICTURES_DIR
 fi
 
-PICURL=get_page
+get_page
 
-# echo "Picture URL is: $PICURL"
+PICURL=`/bin/cat /tmp/pic_url`
+PICURL="${PICURL:0:${#PICURL} - 2}"
+
+"Picture URL is: $PICURL"
 
 echo "# Download picture"
-wget --quiet $PICURL -O $PICTURES_DIR/${TODAY}_NGPD.jpg
-PICURL=get_page
+wget --quiet $PICURL -O $PICTURES_DIR/${TODAY}_NGPD.jpeg
 
-chmod 666 $PICTURES_DIR/${TODAY}_NGPD.jpg
+
+chmod 666 $PICTURES_DIR/${TODAY}_NGPD.jpeg
 # Save picture for export to desktop picture, for osascript would not take substutution of variable
-cp $PICTURES_DIR/${TODAY}_NGPD.jpg /tmp/ngpd_ept.jpg
+cp $PICTURES_DIR/${TODAY}_NGPD.jpeg /tmp/ngpd_ept.jpeg
 
 
 echo "# Set picture as wallpaper"
-osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_ept.jpg" as POSIX file'
+osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_ept.jpeg" as POSIX file'
 
 clean_up
