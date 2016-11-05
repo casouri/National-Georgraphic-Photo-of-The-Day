@@ -8,7 +8,7 @@ PICTURES_DIR=~/Pictures/ngpd
 
 # keep getting url until get the valuable url(not nil)
 function get_page {
-echo "Get website page for url"
+echo "# Get website page for url"
 URL=""
 until [ URL != "" ]
 do
@@ -19,10 +19,7 @@ return URL
 }
 
 function clean_up {
-echo "Clean up temporary files"
-if [ -e "tmp/pic_url" ]; then
-rm /tmp/pic_url
-fi
+echo "# Clean up temporary files"
 if [ -e "/tmp/ngpd_ept.jpg" ]; then
 rm /tmp/ngpd_ept.jpg
 fi
@@ -35,7 +32,7 @@ fi
 TODAY=$(date +'%Y%m%d')
 
 if [ ! -e $PICTURES_DIR/ ]; then
-echo "First time to use, setting up."
+echo "# First time to use, setting up."
 mkdir $PICTURES_DIR
 fi
 
@@ -43,7 +40,7 @@ PICURL=get_page
 
 # echo "Picture URL is: $PICURL"
 
-echo "Download picture"
+echo "# Download picture"
 wget --quiet $PICURL -O $PICTURES_DIR/${TODAY}_NGPD.jpg
 PICURL=get_page
 
@@ -52,7 +49,7 @@ chmod 666 $PICTURES_DIR/${TODAY}_NGPD.jpg
 cp $PICTURES_DIR/${TODAY}_NGPD.jpg /tmp/ngpd_ept.jpg
 
 
-echo "Set picture as wallpaper"
+echo "# Set picture as wallpaper"
 osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_ept.jpg" as POSIX file'
 
 clean_up

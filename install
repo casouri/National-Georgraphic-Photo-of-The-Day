@@ -7,30 +7,30 @@ echo "==>>>=======>>=====<+>=======<<========<<<=="
 echo "*** National Geographic Photo of The Day ***"
 echo "==>>>=======>>=====<+>=======<<========<<<=="
 
-echo "Installing enviornment:"
+echo "# Installing enviornment:"
 if [ ! -e /usr/local/Homebrew ]; then
-echo "Installing Homebrew"
+echo "# Installing Homebrew"
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-echo "Updating Homebrew"
+echo "# Updating Homebrew"
 brew update
 
 if [ ! -e /usr/local/bin/wget ]; then
-echo "Installing wget"
+echo "# Installing wget"
 brew install wget
 fi
 
-echo "Installing script:"
-echo "Installing files"
+echo "# Installing script:"
+echo "# Installing files"
 cp ngpd /usr/local/bin/ngpd
 cp ngpd_uni.plist ~/Library/LaunchAgents/ngpd_uni.plist
 
 if [ ! -e ~/Pictures/ngpd ]; then
-echo "Create directory at ~/Pictures/ngpd"
+echo "# Create directory at ~/Pictures/ngpd"
 mkdir ~/Pictures/ngpd
 fi
-echo "Load agent and run"
+echo "# Load agent and run"
 launchctl load ~/Library/LaunchAgents/ngpd_uni.plist
 
 # Print "have a nice day"

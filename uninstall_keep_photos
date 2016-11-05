@@ -1,6 +1,8 @@
 #!/bin/bash
 
-echo "Deleting files"
+echo "# Unload agent"
+launchctl unload ~/Library/LaunchAgents/ngpd_uni.plist
+echo "# Deleting files"
 rm /usr/local/bin/ngpd
 rm ~/Library/LaunchAgents/ngpd_uni.plist
-echo "Uninstall done"
+echo "# Uninstall done"
