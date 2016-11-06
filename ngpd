@@ -39,7 +39,7 @@ get_page
 PICURL=`/bin/cat /tmp/pic_url`
 PICURL="${PICURL:0:${#PICURL} - 2}"
 
-"Picture URL is: $PICURL"
+# "Picture URL is: $PICURL"
 
 echo "# Download picture"
 wget --quiet $PICURL -O $PICTURES_DIR/${TODAY}_NGPD.jpeg
