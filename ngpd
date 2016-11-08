@@ -15,13 +15,13 @@ wget --quiet -O - http://www.nationalgeographic.com/photography/photo-of-the-day
 function clean_up {
 echo "# Clean up temporary files"
 if [ -e "/tmp/pic_url" ]; then
-rm /tmp/pic_url
+    rm /tmp/pic_url
 fi
 if [ -e "/tmp/ngpd_epx.jpeg" ]; then
-rm /tmp/ngpd_epx.jpeg
+    rm /tmp/ngpd_epx.jpeg
 fi
 if [ -e "/tmp/ngpd_ept.jpeg" ]; then
-rm /tmp/ngpd_ept.jpeg
+    rm /tmp/ngpd_ept.jpeg
 fi
 }
 
@@ -32,8 +32,8 @@ fi
 TODAY=$(date +'%Y%m%d')
 
 if [ ! -e $PICTURES_DIR/ ]; then
-echo "# First time using, setting up."
-mkdir $PICTURES_DIR
+    echo "# First time using, setting up."
+    mkdir $PICTURES_DIR
 fi
 
 get_page
