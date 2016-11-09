@@ -24,14 +24,14 @@ fi
 echo "# Installing script:"
 echo "# Installing files"
 cp ngpd /usr/local/bin/ngpd
-cp ngpd_uni.plist ~/Library/LaunchAgents/ngpd_uni.plist
+cp com.yuan.ngpd.plist ~/Library/LaunchAgents/com.yuan.ngpd.plist
 
 if [ ! -e ~/Pictures/ngpd ]; then
 echo "# Create directory at ~/Pictures/ngpd"
 mkdir ~/Pictures/ngpd
 fi
 echo "# Load agent and run"
-launchctl load ~/Library/LaunchAgents/ngpd_uni.plist
+launchctl load ~/Library/LaunchAgents/com.yuan.ngpd.plist
 
 # Print "have a nice day"
 python print.py

@@ -58,5 +58,5 @@ osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_ept
 osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_epx.jpeg" as POSIX file'
 
 clean_up
-
+date >> ~/Desktop/timelog.log
 # say "Job's done."
