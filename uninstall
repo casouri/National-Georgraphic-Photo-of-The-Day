@@ -8,4 +8,5 @@ rm /usr/local/bin/ngpd
 rm ~/Library/LaunchAgents/ngpd_uni.plist
 rm ~/Pictures/ngpd
 rm /tmp/timelog.log
+rm /tmp/ept
 echo "# Uninstall done"

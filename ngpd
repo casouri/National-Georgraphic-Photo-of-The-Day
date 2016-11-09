@@ -31,15 +31,10 @@ fi
 
 
 TODAY=$(date +'%Y%m%d')
-LOG=`cat /tmp/log`
 
 if [ ! -e $PICTURES_DIR/ ]; then
     echo "# First time using, setting up."
     mkdir $PICTURES_DIR
-fi
-if [ ! -e /tmp/log ]; then
-    echo "# No progress file found, create one."
-    touch /tmp/log
 fi
 
 get_page
@@ -54,15 +49,19 @@ wget --quiet $PICURL -O $PICTURES_DIR/${TODAY}_NGPD.jpeg
 
 chmod 666 $PICTURES_DIR/${TODAY}_NGPD.jpeg
 # Save picture for export to desktop picture, for osascript would not take substutution of variable
-if [ $LOG -eq "ept" ]; then
+
+if [ -e /tmp/ept ]; then
     echo "# ept --> epx"
     cp $PICTURES_DIR/${TODAY}_NGPD.jpeg /tmp/ngpd_epx.jpeg
-    echo $LOG > /tmp/log
+    rm /tmp/ept
+
     echo "# Set picture as wallpaper"
     osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_epx.jpeg" as POSIX file'
 else
     echo "# epx --> ept"
     cp $PICTURES_DIR/${TODAY}_NGPD.jpeg /tmp/ngpd_ept.jpeg
+    touch /tmp/ept
+    
     echo "# Set picture as wallpaper"
     osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_ept.jpeg" as POSIX file'
 fi
