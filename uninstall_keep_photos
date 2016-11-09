@@ -5,4 +5,5 @@ launchctl unload ~/Library/LaunchAgents/ngpd_uni.plist
 echo "# Deleting files"
 rm /usr/local/bin/ngpd
 rm ~/Library/LaunchAgents/ngpd_uni.plist
+rm /tmp/timelog.log
 echo "# Uninstall done"

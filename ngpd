@@ -29,11 +29,17 @@ fi
 # =       MAIN       =
 # ====================
 
+
 TODAY=$(date +'%Y%m%d')
+LOG=`cat /tmp/log`
 
 if [ ! -e $PICTURES_DIR/ ]; then
     echo "# First time using, setting up."
     mkdir $PICTURES_DIR
+fi
+if [ ! -e /tmp/log ]; then
+    echo "# No progress file found, create one."
+    touch /tmp/log
 fi
 
 get_page
@@ -48,15 +54,19 @@ wget --quiet $PICURL -O $PICTURES_DIR/${TODAY}_NGPD.jpeg
 
 chmod 666 $PICTURES_DIR/${TODAY}_NGPD.jpeg
 # Save picture for export to desktop picture, for osascript would not take substutution of variable
-cp $PICTURES_DIR/${TODAY}_NGPD.jpeg /tmp/ngpd_ept.jpeg
-cp $PICTURES_DIR/${TODAY}_NGPD.jpeg /tmp/ngpd_epx.jpeg
-
-# if your set wallpaper with the same path but different content,
-# it will NOT change, so I just make it set wallpaper to different path
-echo "# Set picture as wallpaper"
-osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_ept.jpeg" as POSIX file'
-osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_epx.jpeg" as POSIX file'
+if [ $LOG -eq "ept" ]; then
+    echo "# ept --> epx"
+    cp $PICTURES_DIR/${TODAY}_NGPD.jpeg /tmp/ngpd_epx.jpeg
+    echo $LOG > /tmp/log
+    echo "# Set picture as wallpaper"
+    osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_epx.jpeg" as POSIX file'
+else
+    echo "# epx --> ept"
+    cp $PICTURES_DIR/${TODAY}_NGPD.jpeg /tmp/ngpd_ept.jpeg
+    echo "# Set picture as wallpaper"
+    osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_ept.jpeg" as POSIX file'
+fi
 
 clean_up
-date >> ~/Desktop/timelog.log
+date >> /tmp/timelog.log
 # say "Job's done."
