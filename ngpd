@@ -17,12 +17,6 @@ echo "# Clean up temporary files"
 if [ -e "/tmp/pic_url" ]; then
     rm /tmp/pic_url
 fi
-if [ -e "/tmp/ngpd_epx.jpeg" ]; then
-    rm /tmp/ngpd_epx.jpeg
-fi
-if [ -e "/tmp/ngpd_ept.jpeg" ]; then
-    rm /tmp/ngpd_ept.jpeg
-fi
 }
 
 # ====================
@@ -50,21 +44,8 @@ wget --quiet $PICURL -O $PICTURES_DIR/${TODAY}_NGPD.jpeg
 chmod 666 $PICTURES_DIR/${TODAY}_NGPD.jpeg
 # Save picture for export to desktop picture, for osascript would not take substutution of variable
 
-if [ -e /tmp/ept ]; then
-    echo "# ept --> epx"
-    cp $PICTURES_DIR/${TODAY}_NGPD.jpeg /tmp/ngpd_epx.jpeg
-    rm /tmp/ept
-
-    echo "# Set picture as wallpaper"
-    osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_epx.jpeg" as POSIX file'
-else
-    echo "# epx --> ept"
-    cp $PICTURES_DIR/${TODAY}_NGPD.jpeg /tmp/ngpd_ept.jpeg
-    touch /tmp/ept
-    
-    echo "# Set picture as wallpaper"
-    osascript -e 'tell application "Finder" to set desktop picture to "/tmp/ngpd_ept.jpeg" as POSIX file'
-fi
+echo "# Set picture as wallpaper"
+osascript -e "tell application \"Finder\" to set desktop picture to \"$PICTURES_DIR/${TODAY}_NGPD.jpeg\" as POSIX file"
 
 clean_up
 date >> /tmp/timelog.log
