@@ -6,10 +6,9 @@ PICTURES_DIR=~/Pictures/ngpd
 # =     FUNCTION     =
 # ====================
 
-# keep getting url until get the valuable url(not nil)
 function get_page {
 echo "# Get website page for url"
-wget --quiet -O - http://www.nationalgeographic.com/photography/photo-of-the-day/ | grep -m 1 http://yourshot.nationalgeographic.com/u/.*/ -o > /tmp/pic_url
+curl --silent -o - http://www.nationalgeographic.com/photography/photo-of-the-day/ | grep -m 1 http://yourshot.nationalgeographic.com/u/.*/ -o > /tmp/pic_url
 }
 
 function clean_up {
@@ -39,7 +38,7 @@ PICURL="${PICURL:0:${#PICURL} - 2}"
 # "Picture URL is: $PICURL"
 
 echo "# Download picture"
-wget --quiet $PICURL -O $PICTURES_DIR/${TODAY}_NGPD.jpeg
+curl --silent $PICURL -o $PICTURES_DIR/${TODAY}_NGPD.jpeg
 
 chmod 666 $PICTURES_DIR/${TODAY}_NGPD.jpeg
 # Save picture for export to desktop picture, for osascript would not take substutution of variable
