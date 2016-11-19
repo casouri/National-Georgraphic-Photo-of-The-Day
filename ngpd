@@ -40,9 +40,6 @@ PICURL="${PICURL:0:${#PICURL} - 2}"
 echo "# Download picture"
 curl --silent $PICURL -o $PICTURES_DIR/${TODAY}_NGPD.jpeg
 
-chmod 666 $PICTURES_DIR/${TODAY}_NGPD.jpeg
-# Save picture for export to desktop picture, for osascript would not take substutution of variable
-
 echo "# Set picture as wallpaper"
 osascript -e "tell application \"Finder\" to set desktop picture to \"$PICTURES_DIR/${TODAY}_NGPD.jpeg\" as POSIX file"
 
