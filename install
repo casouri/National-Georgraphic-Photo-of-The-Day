@@ -7,22 +7,7 @@ echo "==>>>=======>>=====<+>=======<<========<<<=="
 echo "*** National Geographic Photo of The Day ***"
 echo "==>>>=======>>=====<+>=======<<========<<<=="
 
-echo "# Installing enviornment:"
-if [ ! -e /usr/local/Homebrew ]; then
-echo "# Installing Homebrew"
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-
-echo "# Updating Homebrew"
-brew update
-
-if [ ! -e /usr/local/bin/wget ]; then
-echo "# Installing wget"
-brew install wget
-fi
-
-echo "# Installing script:"
-echo "# Installing files"
+echo "# Install script"
 cp ngpd /usr/local/bin/ngpd
 cp com.yuan.ngpd.plist ~/Library/LaunchAgents/com.yuan.ngpd.plist
 
