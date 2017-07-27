@@ -41,6 +41,9 @@ echo "# Download picture"
 curl --silent $PICURL -o $PICTURES_DIR/${TODAY}_NGPD.jpeg
 
 echo "# Set picture as wallpaper"
+# Note that if file name keeps the same,
+# system will do nothing
+# so changing file name is nessessary
 osascript -e "tell application \"Finder\" to set desktop picture to \"$PICTURES_DIR/${TODAY}_NGPD.jpeg\" as POSIX file"
 
 clean_up
